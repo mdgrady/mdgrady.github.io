@@ -1,0 +1,534 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Michael Grady | Mechanical Engineering Portfolio</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Portfolio of Michael Grady, Mechanical Engineering student at UMass Amherst." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+<!-- ===================== NAVBAR ===================== -->
+<nav id="navbar">
+    <div class="nav-inner">
+        <a href="#hero" class="nav-brand">Michael Grady</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="attached/Michael Grady Resume.pdf" target="_blank" rel="noopener" class="nav-btn">Resume</a></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<section id="hero">
+    <div class="hero-inner">
+        <img src="images/Relevant Experience/me.jpg" alt="Michael Grady" class="hero-avatar" />
+        <div class="hero-text">
+            <p class="hero-label">Portfolio</p>
+            <h1>Michael Grady</h1>
+            <p class="hero-tagline">Systems Engineer @ General Dynamics Mission Systems<br>Pittsfield, MA</p>
+            <p class="hero-sub">
+                B.S. Mechanical Engineering and Engineering Management minor from the University of Massachusetts Amherst<br>
+                <br>
+                Here's some of the stuff I've been up to, take a look around!
+                
+            </p>
+            <div class="hero-actions">
+                <a href="#experience" class="btn btn-primary">View My Work</a>
+                <a href="attached/Michael Grady Resume.pdf" target="_blank" rel="noopener" class="btn btn-outline">Resume</a>
+            </div>
+            <div class="hero-social">
+                <a href="https://www.linkedin.com/in/michaelgrady3/" target="_blank" rel="noopener" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="mailto:mgradyjr@icloud.com" title="Send me an email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== EXPERIENCE ===================== -->
+<section id="experience" class="alt-bg">
+    <div class="section-inner">
+        <h2 class="section-title">Relevant Experience</h2>
+        <div class="tiles-grid" id="exp-grid"></div>
+    </div>
+</section>
+
+<!-- ===================== PROJECTS ===================== -->
+<section id="projects">
+    <div class="section-inner">
+        <h2 class="section-title">Projects</h2>
+        <div class="tiles-grid" id="proj-grid"></div>
+    </div>
+</section>
+
+<!-- ===================== MODAL ===================== -->
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-el">
+    <div class="modal-box" id="modal-box">
+        <button class="modal-close" id="modal-close" aria-label="Close">
+            <i class="fas fa-times"></i>
+        </button>
+        <!-- Image panel — hidden when entry has no image -->
+        <div class="modal-img-panel" id="modal-img-el"></div>
+        <!-- Text panel — always shown -->
+        <div class="modal-text-panel">
+            <div class="modal-scroll-area">
+                <span class="modal-tag"  id="modal-tag-el"></span>
+                <h3  class="modal-title" id="modal-title-el"></h3>
+                <p   class="modal-org"   id="modal-org-el"></p>
+                <p   class="modal-desc"  id="modal-desc-el"></p>
+            </div>
+            <div class="modal-links" id="modal-links-el"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== FOOTER ===================== -->
+<footer id="footer">
+    <div class="footer-inner">
+        <p class="footer-name">Michael Grady</p>
+        <p class="footer-sub">Systems Engineer @ General Dynamics Mission Systems</p>
+        <div class="footer-social">
+            <a href="https://www.linkedin.com/in/michaelgrady3/" target="_blank" rel="noopener" title="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="mailto:mgradyjr@icloud.com" title="Email">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
+        <p class="footer-copy">Built with HTML &amp; CSS</p>
+    </div>
+</footer>
+
+<!-- ===================== DATA + SCRIPTS ===================== -->
+<script>
+// ============================================================
+//  PORTFOLIO DATA
+//  Edit this section to update or add entries.
+//  Each object supports:
+//    title   – display name (required)
+//    tag     – category label, e.g. "Internship" or "MATLAB · FEA"
+//    org     – organization / course line (optional)
+//    imgs    – array of image paths; first image is used as the tile thumbnail.
+//              Use multiple paths to enable the carousel: ["img1.jpg", "img2.jpg"]
+//              Omit entirely for text-only entries (use icon instead).
+//    icon    – FontAwesome class for the tile when no imgs, e.g. "fas fa-cog"
+//    desc    – full description shown in the modal (required)
+//    links   – array of { label, href, icon, newTab } objects (optional)
+// ============================================================
+
+const EXPERIENCE = [
+    {
+        title: "Ship Systems Intern",
+        tag: "Internship",
+        org: "General Dynamics Mission Systems · Pittsfield, MA",
+        imgs: ["images/Relevant Experience/GD.jpg"],
+        captions: ["General Dynamics Mission Systems, Intern Class of 2025"],
+        desc: "As a Systems Intern on the Surface Ship Program at General Dynamics Mission Systems, I contributed across mechanical, software, and documentation workstreams within the same role. On the mechanical side, I supported prototype progression by implementing design updates in SolidWorks and Creo. Shifting to the software domain, I deployed configuration changes to proprietary Tactical Cross Domain Solutions to manage and filter network traffic between secure domains aboard naval vessels. I also worked on technical documentation for the Littoral Combat Ship's Engineering Control System, writing and maintaining software instructions, user guides, and test procedures to keep pace with system changes.<br><br>I continued supporting the team part-time throughout both semesters of my senior year, and returned full-time after graduation!",
+        links: []
+    },
+    {
+        title: "Manufacturing & Operations Intern",
+        tag: "Internship",
+        org: "UFP Technologies · Chicopee, MA",
+        imgs: ["images/Relevant Experience/UFP.JPG", "images/Relevant Experience/UFP2.jpg"],
+        captions: ["UFP Technologies, Intern Class of 2024", "Me, dressed to enter a clean room"],
+        desc: "As a Manufacturing and Operations Intern at UFP Technologies, I worked closely with manufacturing engineers and cell supervisors to identify and drive operational improvements on the production floor. I co-led two Kaizen workshops that targeted inefficiencies in existing workflows, resulting in roughly $250K in projected labor savings, a 5% reduction in cell footprint, and a 50% cut in operator and material travel distance. Alongside that, I coordinated with the engineering team to design a one-piece flow for a high-volume line, reducing work-in-progress and streamlining the overall process. I also handled the documentation side of the role, updating manufacturing documents to reflect current operation specifications and tracking material use across Epicor and BOMCheck to keep bill of materials accurate during system transfers.",
+        links: []
+    },
+    {
+        title: "Undergraduate Research Assistant",
+        tag: "Wind Turbines · Fluid Interactions",
+        org: "UMass FSI Laboratory · 2025",
+        imgs: ["images/Relevant Experience/bladeReal.jpg", "images/Relevant Experience/blade.png"],
+        captions: ["Metal casted blade & Mounting apparatus", "CAD model of blade"],
+        desc: "Working under Professor Modarres-Sadeghi, I investigated coupled-mode flutter in small-scale wind turbine blades, focusing on the aeroelastic instabilities that occur when structural vibration modes synchronize. To support this research, I engineered a custom experimental apparatus to measure the precise angular displacement between the wind tunnel headwind and the edgewise orientation of the test blade. This system provided the high-precision empirical data required to characterize structural responses and validate theoretical models of flutter onset.<br><br>I also designed and molded a 40cm turbine blade to examine the interaction between the third flapwise and first torsional bending modes. By collecting raw frequency data and applying signal processing techniques to isolate these specific modes, I worked to establish a methodology for identifying the transition into coupled-mode flutter. This analysis served as a critical step toward defining the aerodynamic conditions that trigger catastrophic aeroelastic instability.<br><br>A demonstration of the blade undergoing testing in a water tunnel to observe the resulting vortices is attached. See below!",
+        links: [
+            { label: "Flow Simulation Video", href: "attached/flow.mp4", icon: "fas fa-play-circle", newTab: false }
+        ]
+    },
+    {
+        title: "UMass Robotics Quadruped",
+        tag: "Robotics Research",
+        org: "UMass Robotics Research Team · 2025–2026",
+        imgs: ["images/Relevant Experience/quadruped.jpg", "images/Relevant Experience/assembledquadruped.jpg"],
+        captions: ["CAD model of robot", "Body assembly"],
+        desc: "I spent some time my Senior Year contributing to the UMass Robotics Research Team. We used Onshape to collaboratively design a quadrupedal robot dog, allowing a team of 15 mechanical engineers to simultaneously and efficiently contribute to the CAD model. I drew upon my experience with the ASME Mechatronics Team to apply valuable lessons to this new collaborative challenge, focusing on effective teamwork, providing learning experiences to junior members, and ensuring everybody contributed effectively. The team used FEA to ensure structural integrity and performance, while validating components against simulated loads to optimize the strength-to-weight ratio. We also conducted detailed robotics research to calculate torque and velocity requirements to prevent mechanical failures later in the project's lifespan. By year-end, the CAD model of the robot was near-total completion. Assembly of the physical robot began, and the software and electrical teams began implementing their control logic for the system.",
+        links: [
+            { label: "Leg Documentation",  href: "attached/Leg Documentation.pdf",  icon: "fas fa-file-pdf", newTab: false },
+            { label: "Body Documentation", href: "attached/Body Documentation.pdf", icon: "fas fa-file-pdf", newTab: false }
+        ]
+    },
+    {
+        title: "Ball Bearing Sorter",
+        tag: "ASME Competition",
+        org: "UMass ASME Mechatronics Team · 2024-2025",
+        imgs: ["images/Relevant Experience/bearing.png"],
+        captions: ["Near-final assembly"],
+        desc: "As part of the UMass ASME Mechatronics Competition, my team designed and built an autonomous ball bearing sorter capable of differentiating and sorting bearings by both size and material. I led the mechanical development of the hopper and sorting system. Balls were fed into an Archimedes screw that conveyed them vertically upward before funneling into a size-sorting stage, where smaller balls were separated from larger ones. From there, the sorted balls passed through a metal detector handled by the software team, which identified whether each ball was nylon, bronze, or chrome. I also supported junior members of the team through the 3D printing of prototypes and testing of the final assembly. The team placed 3rd out of 25+ competing teams.",
+        links: [
+            { label: "Demo Video", href: "attached/ballbearingDemo.mp4", icon: "fas fa-play-circle", newTab: false }
+        ]
+    },
+    {
+        title: "Golf Robot",
+        tag: "ASME Competition",
+        org: "UMass ASME Mechatronics Team · 2023-2024",
+        imgs: ["images/Relevant Experience/golf.png", "images/Relevant Experience/golfrobot.jpg"],
+        captions: ["CAD model of robot", "Assembled robot"],
+        desc: "As part of a 25-person team, I competed in the UMass ASME Mechatronics Competition with the goal of building an autonomous robot capable of playing miniature golf. My contributions centered on the mechanical design side of the build. I designed the chassis, club components, frame, and tread system in SolidWorks and 3D printed the final assembly. I also engineered a scotch yoke mechanism to transfer the ball from the previous hole to the next tee box, translating rotational motor motion into the precise linear movement the task required. The team placed 8th out of 30+ competing teams.",
+        links: []
+    }
+];
+
+const PROJECTS = [
+    {
+        title: "F2B PCB Inspection System",
+        tag: "Senior Capstone",
+        org: "UMass Amherst & TTM Technologies · 2025–2026",
+        imgs: ["images/projects/F2Bassembly.jpg", "images/projects/F2Bteam.jpg"],
+        captions: ["System assembly", "Project team"],
+        desc: "To cap off my time at UMass, I had the privilege of contributing to a year-long Senior Design team tasked with modernizing a legacy inspection process for TTM Technologies. Our team engineered an automated, Industry 4.0-ready Front-to-Back (F2B) inspection system for printed circuit board (PCB) cores. We developed a high-precision metrology solution capable of measuring target coordinates with a strict tolerance of 0.1 mil (0.0001 inches), providing floor operators with a reliable, streamlined quality-control tool.<br><br>I primarily focused on the Ignition HMI and the communication architecture between our hardware and software layers. I established basic communication using OPC UA for bidirectional data exchange between Ignition and the Aurora vision engine, while also configuring Modbus TCP to interface with the industrial Ethernet switch and peripheral hardware. To ensure the system met TTM's high standards, the team conducted extensive analysis on data reliability and integrity. This involved designing deterministic logic using tag event scripts to eliminate race conditions, ensuring that metrology data was only logged once the vision results had fully stabilized. Beyond the software, our team designed and assembled the physical infrastructure of the system, including a custom-built inspection table and a fully integrated electrical enclosure.<br><br>By the end of the year, our team delivered a comprehensive system that featured live snapshot polling, a secure engineering \"Admin\" login for discrete system control, and automated data logging via a MySQL database. By using a combination of Python and SQL scripting, I ensured that measurement values were preserved to the 4th decimal place, maintaining the sub-mil precision required for the project. The final result provided TTM with a much more reliable, data-driven method for handling their manufacturing quality control.<br><br>See the attachments below for a demo, our final report, and more!",
+        links: [
+            { label: "Demo Video",             href: "attached/F2Bvideo.mp4",                  icon: "fas fa-play-circle", newTab: false },
+            { label: "Capstone Poster",         href: "attached/Capstone Poster.pdf",           icon: "fas fa-file-pdf",    newTab: false },
+            { label: "Capstone Report",         href: "attached/Capstone Report.pdf",           icon: "fas fa-file-pdf",    newTab: false },
+            { label: "Evaluation",              href: "attached/Evaluation.pdf",                icon: "fas fa-file-pdf",    newTab: false },
+            { label: "Heat Transfer Analysis",  href: "attached/Heat Transfer Analysis.pdf",    icon: "fas fa-file-pdf",    newTab: false },
+            { label: "Vibration Analysis",      href: "attached/Vibration Analysis.pdf",        icon: "fas fa-file-pdf",    newTab: false }
+        ]
+    },
+    {
+        title: "Industrial Automation Projects",
+        tag: "PLC Programming · SCADA",
+        imgs: ["images/projects/MP2control.jpg", "images/projects/MP2overview.jpg"],
+        captions: ["Operator control screen", "Process overview screen"],
+        desc: "During my senior year, I took two elective courses — MIE 553 Industrial Automation and MIE 690STB Industry 4.0, both taught by Professor Jim Lagrant — that together covered the full stack of modern manufacturing: field-level control on one end, enterprise-level data management and intelligent device communication on the other.<br><br>Two teammates and I developed a flexible manufacturing application for a flavored milk production process using Studio 5000 and Ignition Perspective. This involved creating PLC ladder logic to manage a complex state machine while implementing safety \"clamps\" on process variables to ensure operational integrity. By utilizing Ignition's internal SQLite module to build and manage relational database, the team successfully synchronized SCADA-level recipe management with PLC execution through bidirectional Transaction Groups. We used this to log historical batch data and automate production schedules.<br><br>In another project, the same team learned Industry 4.0 architectures by integrating IO-Link technology and smart sensors into an industrial network. We managed end-to-end integration of various field devices — including RFID readers, distance sensors, and smart stack lights — using Electronic Data Sheets (EDS) and Add-On Instructions (AOI) to map diagnostic data directly to an Allen-Bradley CompactLogix PLC. We configured MQTT publishing from the IO-Link Master to an Ignition gateway.<br><br>See the attached videos for a demo!",
+        links: [
+            { label: "Process Demo",     href: "attached/process.mp4",    icon: "fas fa-play-circle", newTab: false },
+            { label: "Recipe Hold Demo", href: "attached/recipeHold.mp4", icon: "fas fa-play-circle", newTab: false }
+        ]
+    },
+    {
+        title: "Multifunctional Bike Wrench",
+        tag: "Manufacturing · FEA",
+        imgs: ["images/projects/wrench.jpg"],
+        captions: ["Finished aluminum wrench"],
+        desc: "Collaborated in a team of four to design an ultra-lightweight multifunctional bike wrench using CAD modeling and FEA analysis (Ansys) to optimize strength and performance. Manufactured the wrench from aluminum stock through precision milling, drilling, and finishing techniques. Tested the final product in a live demonstration and delivered a comprehensive presentation.",
+        links: [
+            { label: "The Paper", href: "attached/WrenchWriteUp.pdf", icon: "fas fa-file-pdf", newTab: false }
+        ]
+    },
+    {
+        title: "Obstacle-Avoiding SmartCar",
+        tag: "Arduino · Robotics",
+        imgs: ["images/projects/car.jpg"],
+        captions: ["Assembled SmartCar"],
+        desc: "Assembled a smart car powered by an Arduino Uno microcontroller that detects and avoids obstacles autonomously. The build utilized distance sensors and basic collision-avoidance algorithms. The car moves forward when the path is clear and turns when an obstacle is detected, enabling it to navigate its environment without intervention.",
+        links: [
+            { label: "The Video", href: "attached/carvid.mp4", icon: "fas fa-play-circle", newTab: false }
+        ]
+    },
+    {
+        title: "Dynamic Analysis Walkthrough",
+        tag: "MATLAB · Dynamics",
+        imgs: ["images/projects/armgraph.jpg"],
+        captions: ["Simulated joint trajectories and torque plots"],
+        desc: "Dynamic analysis of a two-link arm system modeled in MATLAB using Lagrangian mechanics. Equations of motion were derived and solved numerically to simulate the system's behavior over time. Results were visualized through plots and animations, accompanied by a comprehensive written walkthrough detailing each step.",
+        links: [
+            { label: "The Math", href: "attached/Arm Link Analysis.pdf", icon: "fas fa-file-pdf", newTab: false }
+        ]
+    },
+    {
+        title: "Optimized Plywood Box Layout",
+        tag: "MATLAB · Optimization",
+        imgs: ["images/projects/plywood.jpg"],
+        captions: ["Monte Carlo optimized cut layout"],
+        desc: "Maximized material efficiency by optimizing the layout of boxes cut from a standard 96\" × 48\" plywood sheet. Implemented a Monte Carlo simulation in MATLAB to determine the optimal arrangement and maximize the number of boxes produced while minimizing waste. Results visualized through graphical outputs.",
+        links: [
+            { label: "The Code", href: "attached/PlyLayout_MDG.m", icon: "fas fa-code", newTab: false, download: true }
+        ]
+    },
+    {
+        title: "Tensile Testing Experiment",
+        tag: "Materials · Technical Writing",
+        icon: "fas fa-vial",
+        desc: "Lab report detailing an experiment on the tensile properties of 1010 Steel, investigating its mechanical response under tensile loading. Employed hardness and tensile tests to determine key parameters including ultimate tensile strength, yield stress, and ductility. Worked in a group lab environment to subject multiple steel specimens to tensile tests, then individually reported the findings.",
+        links: [
+            { label: "The Report", href: "attached/Lab 2-Tensile Testing.pdf", icon: "fas fa-file-pdf", newTab: false }
+        ]
+    },
+    {
+        title: "Hip Exoskeleton Design Review",
+        tag: "Research · Technical Writing",
+        icon: "fas fa-walking",
+        desc: "Authored a literature review examining the design considerations and potential adverse effects of hip-attached exoskeletons for gait rehabilitation. The review synthesizes eight peer-reviewed sources to analyze how design parameters (including degrees of freedom, actuator selection, and control system architecture) influence the effectiveness and safety of hip exoskeletons in clinical and rehabilitation settings. The paper evaluates clinical trials and case studies assessing key gait metrics, finding that while hip exoskeletons demonstrate meaningful improvements in rehabilitation outcomes, very little data exists on their long-term adverse effects. The review concludes with recommendations for future studies to more systematically track parameters that may negatively impact wearer health and gait.",
+        links: [
+            { label: "The Paper", href: "attached/exoskeletonPaper.pdf", icon: "fas fa-file-pdf", newTab: false }
+        ]
+    },
+
+    // ============================================================
+    //  ADD NEW PROJECTS BELOW THIS LINE
+    //  Copy-paste the template and fill in your details:
+    //
+    // ,{
+    //     title: "Your Project Title",
+    //     tag: "Tag1 · Tag2",
+    //     imgs: ["images/projects/photo1.jpg", "images/projects/photo2.jpg"],
+    //                              // ^ multiple images enable the carousel
+    //                              // omit imgs entirely if there is no image
+    //     icon: "fas fa-wrench",   // tile icon used only when imgs is omitted
+    //     desc: "Description of your project...",
+    //     links: [
+    //         { label: "Link Label", href: "path/or/url", icon: "fas fa-file-pdf", newTab: false }
+    //     ]
+    // }
+    // ============================================================
+];
+
+// ============================================================
+//  TILE BUILDER — generates the clickable grid tiles
+// ============================================================
+function buildTiles(data, containerId) {
+    var grid = document.getElementById(containerId);
+    data.forEach(function(item) {
+        var btn = document.createElement('button');
+        btn.className = 'tile';
+        btn.setAttribute('aria-label', 'View details for ' + item.title);
+
+        var thumb = item.imgs && item.imgs.length ? item.imgs[0] : null;
+        var inner = '';
+
+        if (thumb) {
+            inner += '<div class="tile-bg"><img src="' + thumb + '" alt="' + item.title + '" loading="lazy" /></div>';
+        } else {
+            inner += '<div class="tile-icon-bg"><i class="' + (item.icon || 'fas fa-folder') + '"></i></div>';
+        }
+
+        inner += '<div class="tile-grad"></div>';
+        inner += '<div class="tile-content">';
+        inner += '<span class="tile-tag">' + (item.tag || '') + '</span>';
+        inner += '<h3>' + item.title + '</h3>';
+        inner += '</div>';
+
+        btn.innerHTML = inner;
+        btn.addEventListener('click', function() { openModal(item); });
+        grid.appendChild(btn);
+    });
+}
+
+// ============================================================
+//  CAROUSEL STATE
+// ============================================================
+var carouselImgs = [];
+var carouselCaps = [];
+var carouselIdx  = 0;
+
+function renderCarousel(idx) {
+    var imgs  = carouselImgs;
+    var caps  = carouselCaps;
+    var multi = imgs.length > 1;
+
+    // Clear and rebuild panel contents
+    imgEl.innerHTML = '';
+
+    // Inner wrapper — image + overlay controls
+    var wrap = document.createElement('div');
+    wrap.className = 'carousel-img-wrap';
+
+    var img = document.createElement('img');
+    img.src = imgs[idx];
+    img.alt = '';
+    wrap.appendChild(img);
+
+    if (multi) {
+        // Prev arrow
+        var prev = document.createElement('button');
+        prev.className = 'carousel-arrow carousel-prev';
+        prev.setAttribute('aria-label', 'Previous image');
+        prev.innerHTML = '<i class="fas fa-chevron-left"></i>';
+        prev.addEventListener('click', function(e) { e.stopPropagation(); carouselStep(-1); });
+        wrap.appendChild(prev);
+
+        // Next arrow
+        var next = document.createElement('button');
+        next.className = 'carousel-arrow carousel-next';
+        next.setAttribute('aria-label', 'Next image');
+        next.innerHTML = '<i class="fas fa-chevron-right"></i>';
+        next.addEventListener('click', function(e) { e.stopPropagation(); carouselStep(1); });
+        wrap.appendChild(next);
+
+        // Dots
+        var dotsWrap = document.createElement('div');
+        dotsWrap.className = 'carousel-dots';
+        imgs.forEach(function(_, i) {
+            var dot = document.createElement('button');
+            dot.className = 'carousel-dot' + (i === idx ? ' active' : '');
+            dot.setAttribute('aria-label', 'Image ' + (i + 1));
+            (function(i){ dot.addEventListener('click', function(e) { e.stopPropagation(); carouselGoto(i); }); })(i);
+            dotsWrap.appendChild(dot);
+        });
+        wrap.appendChild(dotsWrap);
+    }
+
+    imgEl.appendChild(wrap);
+
+    // Caption below image (only if text provided)
+    var capText = caps && caps[idx] ? caps[idx] : '';
+    if (capText) {
+        var cap = document.createElement('div');
+        cap.className = 'carousel-caption';
+        cap.textContent = capText;
+        imgEl.appendChild(cap);
+    }
+}
+
+function carouselStep(dir) {
+    carouselIdx = (carouselIdx + dir + carouselImgs.length) % carouselImgs.length;
+    renderCarousel(carouselIdx);
+}
+
+function carouselGoto(i) {
+    carouselIdx = i;
+    renderCarousel(i);
+}
+
+
+// ============================================================
+//  MODAL LOGIC
+// ============================================================
+var overlay = document.getElementById('modal');
+var titleEl = document.getElementById('modal-title-el');
+var tagEl   = document.getElementById('modal-tag-el');
+var orgEl   = document.getElementById('modal-org-el');
+var descEl  = document.getElementById('modal-desc-el');
+var imgEl   = document.getElementById('modal-img-el');
+var linksEl = document.getElementById('modal-links-el');
+
+// Scroll wheel / touchpad navigation on the image panel
+var _wheelCooldown = false;
+imgEl.addEventListener('wheel', function(e) {
+    if (carouselImgs.length <= 1) return;
+    e.preventDefault();
+    if (_wheelCooldown) return;
+    _wheelCooldown = true;
+    setTimeout(function() { _wheelCooldown = false; }, 350);
+    // deltaX for horizontal swipe (touchpad), deltaY for vertical scroll/wheel
+    var delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    carouselStep(delta > 0 ? 1 : -1);
+}, { passive: false });
+
+function openModal(item) {
+    var box  = document.getElementById('modal-box');
+    var imgs = item.imgs && item.imgs.length ? item.imgs : [];
+
+    // Set up carousel (or hide panel if no images)
+    if (imgs.length > 0) {
+        carouselImgs = imgs;
+        carouselCaps = item.captions && item.captions.length ? item.captions : [];
+        carouselIdx  = 0;
+        // Preload all images so carousel switches are instant
+        imgs.forEach(function(src) { var p = new Image(); p.src = src; });
+        imgEl.style.display = '';
+        box.classList.remove('no-image');
+        renderCarousel(0);
+    } else {
+        carouselImgs = [];
+        imgEl.innerHTML = '';
+        imgEl.style.display = 'none';
+        box.classList.add('no-image');
+    }
+
+    // Text content
+    tagEl.textContent   = item.tag  || '';
+    titleEl.textContent = item.title;
+    orgEl.textContent   = item.org  || '';
+    descEl.innerHTML    = item.desc || '';
+    orgEl.style.display = item.org  ? '' : 'none';
+
+    // Links
+    linksEl.innerHTML = '';
+    (item.links || []).forEach(function(l) {
+        var a = document.createElement('a');
+        a.className = 'modal-link';
+        a.href = l.href;
+        if (l.newTab)   { a.target = '_blank'; a.rel = 'noopener'; }
+        if (l.download) { a.setAttribute('download', ''); }
+        a.innerHTML = '<i class="' + l.icon + '"></i> ' + l.label;
+        linksEl.appendChild(a);
+    });
+
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('modal-close').focus();
+}
+
+function closeModal() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+document.getElementById('modal-close').addEventListener('click', closeModal);
+overlay.addEventListener('click', function(e) { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+
+// ============================================================
+//  NAV BEHAVIOUR
+// ============================================================
+document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('open');
+});
+document.querySelectorAll('#navLinks a').forEach(function(link) {
+    link.addEventListener('click', function() {
+        document.getElementById('navLinks').classList.remove('open');
+    });
+});
+document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+        var target = document.querySelector(this.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+});
+// ============================================================
+//  NAVBAR MODE SWITCH (dark over hero, light over content)
+// ============================================================
+var heroEl      = document.getElementById('hero');
+var experienceEl = document.getElementById('experience');
+
+function onScroll() {
+    var navbar = document.getElementById('navbar');
+    var scrollY = window.scrollY;
+
+    // Switch to light mode when the experience section reaches the navbar
+    var expTop   = experienceEl.getBoundingClientRect().top;
+    var heroPast = expTop <= 64;
+
+    navbar.classList.toggle('nav-dark', !heroPast);
+    navbar.classList.toggle('scrolled',  heroPast && scrollY > 40);
+}
+
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll(); // apply immediately on load
+
+// ============================================================
+//  INIT
+// ============================================================
+buildTiles(EXPERIENCE, 'exp-grid');
+buildTiles(PROJECTS,   'proj-grid');
+</script>
+
+</body>
+</html>
